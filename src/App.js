@@ -20,9 +20,9 @@ const list = [
   }
 ];
 
-function isSearched(query) {
+function isSearched(searchTerm) {
   return function(item) {
-    return !query || item.title.toLowerCase().includes(query.toLowerCase());
+    return !searchTerm || item.title.toLowerCase().includes(searchTerm.toLowerCase());
   }
 }
 
@@ -33,24 +33,24 @@ class App extends Component {
     this.state = {
       // ES5 list: list
       list,
-      query: '',
+      searchTerm: '',
     };
 
     this.onSearchChange = this.onSearchChange.bind(this);
   }
 
   onSearchChange(event) {
-    this.setState({ query: event.target.value });
+    this.setState({ searchTerm: event.target.value });
   }
 
   render() {
-    const query = this.state.query;
+    const { searchTerm, list} = this.state;
     return (
       <div className="App">
         <form>
-          <input type="text" value={query} onChange={this.onSearchChange} />
+          <input type="text" value={searchTerm} onChange={this.onSearchChange} />
         </form>
-        { this.state.list.filter(isSearched(query)).map((item) =>
+        { list.filter(isSearched(searchTerm)).map((item) =>
             <div key={item.objectID}>
               <span><a href={item.url}>{item.title}</a></span>
               <span>{item.author}</span>
