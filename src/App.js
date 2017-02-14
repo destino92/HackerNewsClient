@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 import './App.css';
 
+const DEFAULT_QUERY = 'redux';
+
+const PATH_BASE = 'https://hn.algolia.com/api/v1';
+const PATH_SEARCH = '/search';
+const PARAM_SEARCH = 'query=';
+
 const list = [
   {
     title: 'React',
@@ -20,11 +26,9 @@ const list = [
   }
 ];
 
-function isSearched(searchTerm) {
-  return function(item) {
-    return !searchTerm || item.title.toLowerCase().includes(searchTerm.toLowerCase());
-  }
-}
+const isSearched = (searchTerm) => (item) =>
+  !searchTerm || item.title.toLowerCase().includes(searchTerm.toLowerCase());
+
 
 class App extends Component {
   constructor(props) {
@@ -71,16 +75,7 @@ class App extends Component {
   }
 }
 
-const Button = ({onClick, className, children}) =>
-    <button
-      onClick={onClick}
-      className=' '
-      type="button"
-    >
-      {children}
-    </button>
-
-const Search = ({value, onChange, children }) =>
+const Search = ({ value, onChange, children }) =>
     <form>
       {children} <input
         type="text"
@@ -113,5 +108,14 @@ const Table = ({ list, pattern, onDismiss }) =>
           </div>
       )}
     </div>
+
+const Button = ({onClick, className, children}) =>
+    <button
+      onClick={onClick}
+      className=' '
+      type="button"
+    >
+      {children}
+    </button>
 
 export default App;
