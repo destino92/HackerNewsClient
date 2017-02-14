@@ -45,7 +45,7 @@ class App extends Component {
     const isNotId = item => item.objectID !== id;
     const updatedHits = this.state.result.hits.filter(isNotId);
     this.setState({
-      result: { ...this.state.result, hits: updatedHits } 
+      result: { ...this.state.result, hits: updatedHits }
     });
   }
 
@@ -55,8 +55,6 @@ class App extends Component {
 
   render() {
     const { searchTerm, result} = this.state;
-    console.log(result);
-    if (!result) { return null; }
 
     return (
       <div className="page">
@@ -67,11 +65,14 @@ class App extends Component {
             Search
           </Search>
         </div>
-        <Table
-          list={result.hits}
-          pattern={searchTerm}
-          onDismiss={this.onDismiss}
-              />
+        {result
+          ? <Table
+              list={result.hits}
+              pattern={searchTerm}
+              onDismiss={this.onDismiss}
+            />
+            : null
+        }
       </div>
     );
   }
