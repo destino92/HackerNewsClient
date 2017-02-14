@@ -35,9 +35,8 @@ class App extends Component {
     super(props);
 
     this.state = {
-      // ES5 list: list
-      list,
-      searchTerm: ''
+      result: null,
+      searchTerm: DEFAULT_QUERY,
     };
 
     this.onDismiss = this.onDismiss.bind(this);
