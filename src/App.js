@@ -20,7 +20,8 @@ class App extends Component {
     super(props);
 
     this.state = {
-      result: null,
+      results: null,
+      searchKey: '',
       searchTerm: DEFAULT_QUERY,
     };
 
@@ -33,8 +34,9 @@ class App extends Component {
 
   setSearchTopstories(result) {
     const { hits, page } = result;
+    const { searchKey, results } = this.state;
 
-    const oldHits = page !== 0 ? this.state.result.hits : [];
+    const oldHits = results && results[searchKey] ? results[searchKey].hits : [];
 
     const updatedHits = [
       ...oldHits,
@@ -42,8 +44,11 @@ class App extends Component {
     ];
 
     this.setState({
-      result: { hits: updatedHits, page }
-    })
+      results: {
+         ...results,
+         [searchKey]: { hits: updatedHits, page }
+       }
+    });
   }
 
   fetchSearchTopstories(searchTerm, page) {
@@ -54,11 +59,13 @@ class App extends Component {
 
   componentDidMount() {
     const { searchTerm } = this.state;
+    this.setState({ searchKey: searchTerm });
     this.fetchSearchTopstories(searchTerm, DEFAULT_PAGE);
   }
 
   onSearchSubmit(event) {
     const { searchTerm } = this.state;
+    this.setState({ searchKey: searchTerm });
     this.fetchSearchTopstories(searchTerm, DEFAULT_PAGE);
     // For the browser not to reload itself
     event.preventDefault();
