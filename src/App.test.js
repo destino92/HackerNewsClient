@@ -18,4 +18,11 @@ describe('App', () => {
     expect(tree).toMatchSnapshot();
   });
 
-})
+});
+
+describe('Search', () => {
+  it('renders', () => {
+    const div = document.createElement('div');
+    ReactDOM.render(<Search>Search</Search>, div);
+  })
+});
