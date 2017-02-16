@@ -11,10 +11,6 @@ const PARAM_SEARCH = 'query=';
 const PARAM_PAGE = 'page=';
 const PARAM_HPP = 'hitsPerPage=';
 
-//const isSearched = (searchTerm) => (item) =>
-//  !searchTerm || item.title.toLowerCase().includes(searchTerm.toLowerCase());
-
-
 class App extends Component {
   constructor(props) {
     super(props);
@@ -75,7 +71,7 @@ class App extends Component {
     if(this.needsToSearchTopstories(searchTerm)){
       this.fetchSearchTopstories(searchTerm, DEFAULT_PAGE);
     }
-    
+
     // For the browser not to reload itself
     event.preventDefault();
   }
@@ -193,3 +189,9 @@ const Button = ({onClick, className, children}) =>
     </button>
 
 export default App;
+
+export {
+  Button,
+  Search,
+  Table,
+};
