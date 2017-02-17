@@ -193,9 +193,6 @@ class Table extends Component {
     render() {
       const {
         list,
-        sortKey,
-        isSortReverse,
-        onSort,
         onDismiss
       } = this.props;
 
