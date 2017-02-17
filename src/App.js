@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { sortBy } from 'lodash';
+import classNames from 'classnames';
 import './App.css';
 
 const DEFAULT_QUERY = 'redux';
@@ -200,22 +201,22 @@ const Table = ({
       <div className="table">
         <div className="table-header">
           <span style={{ width: '40%' }}>
-            <Sort sortKey={'TITLE'} onSort={onSort}>
+            <Sort sortKey={'TITLE'} onSort={onSort} activeSortKey={sortKey}>
               Title
             </Sort>
           </span>
           <span style={{ width: '30%' }}>
-            <Sort sortKey={'AUTHOR'} onSort={onSort}>
+            <Sort sortKey={'AUTHOR'} onSort={onSort} activeSortKey={sortKey}>
               Author
             </Sort>
           </span>
           <span style={{ width: '10%' }}>
-            <Sort sortKey={'COMMENTS'} onSort={onSort}>
+            <Sort sortKey={'COMMENTS'} onSort={onSort} activeSortKey={sortKey}>
               Comments
             </Sort>
           </span>
           <span style={{ width: '10%' }}>
-            <Sort sortKey={'POINTS'} onSort={onSort}>
+            <Sort sortKey={'POINTS'} onSort={onSort} activeSortKey={sortKey}>
               Points
             </Sort>
           </span>
@@ -248,10 +249,19 @@ const Table = ({
     );
   }
 
-const Sort = ({ sortKey, onSort, children }) =>
-  <Button onClick={() => onSort(sortKey)} className="button-inline">
-    {children}
-  </Button>
+const Sort = ({ sortKey, activeSortKey, onSort, children }) => {
+  const sortClass = classNames(
+    'button-inline',
+    { 'button-active': sortKey === activeSortKey }
+  );
+
+  return (
+    <Button onClick={() => onSort(sortKey)} className={sortClass}>
+      {children}
+    </Button>
+  );
+}
+
 
 const Button = ({onClick, className = '', children}) =>
   <button
