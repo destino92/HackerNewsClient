@@ -138,12 +138,9 @@ class App extends Component {
           onDismiss={this.onDismiss}
         />
         <div className="interactions">
-          {
-            isLoading ? <Loading />
-                      : <Button onClick={() => this.fetchSearchTopstories(searchKey, page + 1)}>
-                        More
-                      </Button>
-          }
+          <ButtonWithLoading isLoading={isLoading} onClick={() => this.fetchSearchTopstories(searchKey, page + 1)}>
+            More
+          </ButtonWithLoading>
         </div>
       </div>
     );
@@ -190,14 +187,19 @@ const Table = ({ list, onDismiss }) =>
       )}
     </div>
 
-const Button = ({onClick, className, children}) =>
+const Button = ({onClick, className = '', children}) =>
     <button
       onClick={onClick}
-      className=' '
+      className={className}
       type="button"
     >
       {children}
     </button>
+
+const withLoading = (Component) => ({ isLoading, ...rest }) =>
+  isLoading ? <Loading /> : <Component { ...rest } />
+
+const ButtonWithLoading = withLoading(Button);
 
 export default App;
 
